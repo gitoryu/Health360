@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#071b2a" />
+  <meta name="description" content="Health360 — an interactive healthcare analytics project exploring patient demographics, lifestyle factors, BMI, blood pressure and heart-disease patterns." />
+  <title>Health360 | Patient Risk & Lifestyle Insights</title>
+  <link rel="preconnect" href="https://public.tableau.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+  <style>
+    :root{--ink:#eaf3f6;--muted:#9fb4bf;--bg:#071b2a;--panel:#0d2637;--panel2:#102e40;--line:rgba(195,222,232,.13);--mint:#72e0c0;--cyan:#73c8e8;--gold:#f1c879;--white:#fff;--shadow:0 24px 70px rgba(0,0,0,.28)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:radial-gradient(ellipse at 80% -10%,rgba(43,137,153,.22),transparent 36%),radial-gradient(ellipse at 0% 35%,rgba(42,106,130,.15),transparent 32%),var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;line-height:1.55}
+    a{color:inherit;text-decoration:none}.wrap{width:min(1180px,calc(100% - 44px));margin:auto}
+    .topbar{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;position:sticky;top:0;z-index:20;background:rgba(7,27,42,.88);backdrop-filter:blur(18px)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:12px;font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.04em;font-size:21px}.brand-mark{height:36px;width:36px;border-radius:12px;background:linear-gradient(135deg,var(--mint),var(--cyan));display:grid;place-items:center;color:#082332;font-size:19px;box-shadow:0 8px 24px rgba(114,224,192,.2)}
+    .navlinks{display:flex;align-items:center;gap:26px;color:var(--muted);font-size:13px;font-weight:600}.navlinks a:hover{color:var(--mint)}.nav-cta{border:1px solid rgba(114,224,192,.38);padding:10px 15px;border-radius:999px;color:var(--mint)}
+    .hero{padding:76px 0 48px;display:grid;grid-template-columns:1.12fr .88fr;gap:52px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--mint);font-size:11px;text-transform:uppercase;letter-spacing:.17em;font-weight:700}.pulse{width:7px;height:7px;background:var(--mint);border-radius:50%;box-shadow:0 0 0 5px rgba(114,224,192,.12)}h1,h2,h3,p{margin-top:0}h1{font:800 clamp(42px,6vw,70px)/1.02 Manrope,sans-serif;letter-spacing:-.065em;margin:20px 0 20px;max-width:720px}h1 span{background:linear-gradient(100deg,var(--mint),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}.hero-copy{color:#b6c8d0;font-size:16px;max-width:610px;line-height:1.8}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 18px;border-radius:12px;font-weight:700;font-size:13px;transition:.2s;border:1px solid transparent}.btn-primary{background:var(--mint);color:#062332;box-shadow:0 12px 30px rgba(114,224,192,.16)}.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.04)}.btn-ghost{border-color:var(--line);color:var(--ink);background:rgba(255,255,255,.025)}.btn-ghost:hover{border-color:rgba(114,224,192,.5)}
+    .hero-art{min-height:300px;position:relative;display:grid;place-items:center}.orbit{width:min(340px,80vw);aspect-ratio:1;border:1px solid rgba(114,224,192,.22);border-radius:50%;position:relative;display:grid;place-items:center;background:radial-gradient(circle,rgba(114,224,192,.12),rgba(8,35,51,.08) 55%,transparent 56%)}.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid rgba(115,200,232,.2);border-radius:50%;inset:28px}.orbit:after{inset:62px;border-color:rgba(114,224,192,.25)}.core{height:112px;width:112px;border-radius:34px;background:linear-gradient(145deg,#b5f5df,#67c5d8);display:grid;place-items:center;color:#092a39;font-size:44px;box-shadow:0 0 65px rgba(114,224,192,.24);z-index:2}.float-card{position:absolute;background:rgba(13,38,55,.92);border:1px solid var(--line);border-radius:14px;padding:12px 15px;box-shadow:var(--shadow);backdrop-filter:blur(10px);font-size:11px;color:var(--muted)}.float-card strong{display:block;font:700 19px Manrope;color:var(--ink);margin-top:2px}.fc1{top:16px;right:0}.fc2{bottom:24px;left:-2px}.fc3{bottom:4px;right:12px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 auto 70px}.stat{padding:20px 22px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,rgba(16,46,64,.85),rgba(10,32,47,.75))}.stat strong{display:block;font:800 28px Manrope;letter-spacing:-.05em;color:var(--white)}.stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:22px}.section-kicker{color:var(--mint);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700}.section-head h2{font:800 clamp(26px,3vw,38px)/1.15 Manrope;letter-spacing:-.05em;margin:8px 0 0}.section-head p{max-width:460px;color:var(--muted);font-size:13px;margin:0}
+    .workspace{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(15,42,59,.95),rgba(8,28,43,.96));padding:18px;box-shadow:var(--shadow);margin-bottom:76px}.viewbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:4px 4px 18px}.tabs{display:flex;gap:7px;padding:5px;background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:13px}.tab{border:0;background:transparent;color:var(--muted);font:600 12px 'DM Sans';padding:11px 16px;border-radius:9px;cursor:pointer}.tab.active{background:var(--mint);color:#062332;box-shadow:0 6px 18px rgba(114,224,192,.14)}.view-actions{display:flex;gap:9px}.small-link{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:9px 12px;border-radius:9px}.small-link:hover{color:var(--mint);border-color:rgba(114,224,192,.45)}.viz-meta{display:flex;justify-content:space-between;align-items:center;padding:0 5px 14px;color:var(--muted);font-size:11px}.viz-meta strong{color:var(--ink);font-size:13px}.viz-frame{height:780px;background:#fff;border-radius:13px;overflow:hidden;position:relative}.viz-frame tableau-viz{width:100%;height:100%;display:block}.viz-frame iframe{width:100%;height:100%;border:0}.loading{position:absolute;inset:0;display:grid;place-items:center;background:#f5f8f8;color:#193849;font-size:13px;z-index:0;pointer-events:none}.loading span{display:flex;align-items:center;gap:10px}.loader{width:16px;height:16px;border:2px solid #c9d9dc;border-top-color:#188d83;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .insights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 76px}.insight{padding:23px;border:1px solid var(--line);border-radius:17px;background:rgba(13,38,55,.66)}.insight .num{color:var(--mint);font:800 12px Manrope;letter-spacing:.1em}.insight h3{font:700 17px Manrope;margin:13px 0 8px}.insight p{color:var(--muted);font-size:12px;line-height:1.8;margin:0}
+    .about{display:grid;grid-template-columns:1fr 1fr;gap:42px;padding:36px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(120deg,rgba(16,46,64,.7),rgba(8,29,43,.4));margin-bottom:76px}.about h2{font:800 30px Manrope;letter-spacing:-.05em;margin:8px 0 12px}.about p{color:var(--muted);font-size:13px;line-height:1.9}.tool-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:#c2d4dc;font-size:11px}.note{border-left:2px solid var(--gold);padding:5px 0 5px 17px;color:#c1cbd0;font-size:12px;line-height:1.8;align-self:center}.note strong{color:var(--gold);display:block;margin-bottom:5px}
+    footer{border-top:1px solid var(--line);padding:28px 0 38px;color:var(--muted);font-size:11px}.foot{display:flex;justify-content:space-between;gap:18px;align-items:center}.foot strong{color:var(--ink)}
+    @media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:55px;gap:12px}.hero-art{min-height:250px}.orbit{width:250px}.stats{grid-template-columns:repeat(2,1fr);margin-bottom:55px}.section-head{display:block}.section-head p{margin-top:10px}.viewbar{align-items:flex-start;flex-direction:column}.view-actions{width:100%}.viz-frame{height:650px}.insights{grid-template-columns:1fr}.about{grid-template-columns:1fr;padding:25px;gap:15px}.navlinks{gap:12px}.navlinks a:not(.nav-cta){display:none}}
+    @media(max-width:460px){.wrap{width:min(100% - 28px,1180px)}.topbar{height:66px}.brand{font-size:18px}.hero{padding-top:42px}h1{font-size:43px}.hero-copy{font-size:14px}.stats{gap:8px}.stat{padding:16px}.stat strong{font-size:24px}.workspace{padding:10px;border-radius:16px}.tab{padding:10px 11px;font-size:11px}.viz-frame{height:560px}.foot{display:block}.foot span{display:block;margin-top:8px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="Health360 home"><span class="brand-mark">✚</span>health<span style="color:var(--mint)">360</span></a>
+      <nav class="navlinks" aria-label="Main navigation"><a href="#explore">Explore</a><a href="#insights">Insights</a><a href="#about">About</a><a class="nav-cta" href="#explore">Open analytics ↗</a></nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="wrap hero">
+      <div>
+        <div class="eyebrow"><i class="pulse"></i> Interactive healthcare analytics</div>
+        <h1>See the patterns.<br><span>Understand the risk.</span></h1>
+        <p class="hero-copy">Health360 brings patient demographics, lifestyle indicators and health outcomes into one interactive experience. Explore the dashboards, move through the data story, and discover patterns across the 5,000-record dataset.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#explore">Explore the data <span>↓</span></a><a class="btn btn-ghost" href="https://public.tableau.com/app/profile/aadarsh.barkiya" target="_blank" rel="noopener">View Tableau profile ↗</a></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit"><div class="core">✚</div></div>
+        <div class="float-card fc1">PATIENT RECORDS<strong>5,000</strong></div>
+        <div class="float-card fc2">ANALYTICS FOCUS<strong>Risk + lifestyle</strong></div>
+        <div class="float-card fc3">BUILT WITH<strong>Tableau Public</strong></div>
+      </div>
+    </section>
+
+    <section class="wrap stats" aria-label="Dataset overview">
+      <div class="stat"><strong>5,000</strong><span>Patient records</span></div>
+      <div class="stat"><strong>6</strong><span>Age groups</span></div>
+      <div class="stat"><strong>4</strong><span>BMI categories</span></div>
+      <div class="stat"><strong>2</strong><span>Interactive Tableau views</span></div>
+    </section>
+
+    <section class="wrap" id="explore">
+      <div class="section-head"><div><div class="section-kicker">Explore the project</div><h2>Healthcare data, made explorable.</h2></div><p>Switch between the full analytics dashboard and the guided patient-risk story without leaving this page.</p></div>
+      <div class="workspace">
+        <div class="viewbar">
+          <div class="tabs" role="tablist" aria-label="Choose visualization">
+            <button class="tab active" id="dashboardTab" role="tab" aria-selected="true" aria-controls="vizPanel">01&nbsp; Dashboard</button>
+            <button class="tab" id="storyTab" role="tab" aria-selected="false" aria-controls="vizPanel">02&nbsp; Data story</button>
+          </div>
+          <div class="view-actions"><a class="small-link" id="openTableau" href="https://public.tableau.com/views/Health360HealthcareRiskAnalysis_17932895178070/Health360HealthcareRiskAnalysis" target="_blank" rel="noopener">Open on Tableau ↗</a></div>
+        </div>
+        <div class="viz-meta"><strong id="vizTitle">Health360 Healthcare Risk Analysis</strong><span id="vizDescription">Explore patient distribution, health indicators and lifestyle patterns.</span></div>
+        <div class="viz-frame" id="vizPanel" role="tabpanel" aria-labelledby="dashboardTab">
+          <div class="loading" id="loading"><span><i class="loader"></i> Loading interactive Tableau visualization…</span></div>
+          <tableau-viz id="healthViz" src="https://public.tableau.com/views/Health360HealthcareRiskAnalysis_17932895178070/Health360HealthcareRiskAnalysis" toolbar="bottom" hide-tabs style="width:100%;height:100%;" device="default"></tableau-viz>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" id="insights">
+      <div class="section-head"><div><div class="section-kicker">What to look for</div><h2>Three ways to explore.</h2></div><p>Use the interactive views to inspect the underlying charts and compare categories. The observations below are descriptive, not clinical conclusions.</p></div>
+      <div class="insights">
+        <article class="insight"><div class="num">01 / DEMOGRAPHICS</div><h3>Who is represented?</h3><p>Compare the distribution of patients across six age groups and explore how demographic segments appear across the health indicators.</p></article>
+        <article class="insight"><div class="num">02 / LIFESTYLE</div><h3>Which patterns stand out?</h3><p>Explore exercise levels, fatigue, alcohol consumption and smoking patterns across the available patient groups.</p></article>
+        <article class="insight"><div class="num">03 / HEALTH INDICATORS</div><h3>How do measures compare?</h3><p>Review blood pressure, BMI categories and recorded heart-disease outcomes through interactive comparisons.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap about" id="about">
+      <div><div class="section-kicker">About the project</div><h2>Health360 — Patient Risk & Lifestyle Insights</h2><p>An academic data-visualization project by <strong style="color:var(--ink)">Aadarsh Barkiya</strong>. The website brings two published Tableau Public visualizations together in a single, responsive interface.</p><div class="tool-pills"><span class="pill">Tableau Public</span><span class="pill">Data visualization</span><span class="pill">Healthcare analytics</span><span class="pill">Interactive storytelling</span></div></div>
+      <div class="note"><strong>Important context</strong>This project explores patterns in a dataset for educational and analytical purposes. It is not a diagnostic or clinical decision-support tool. Observed associations do not establish cause and effect, and the visualizations should not be used to make individual healthcare decisions.</div>
+    </section>
+  </main>
+
+  <footer><div class="wrap foot"><div>© 2026 <strong>Health360</strong> · A project by Aadarsh Barkiya</div><span>Visualizations hosted on Tableau Public · <a href="https://public.tableau.com/app/profile/aadarsh.barkiya" target="_blank" rel="noopener">Tableau profile ↗</a></span></div></footer>
+
+  <script>
+    const views = {
+      dashboard: {
+        src: 'https://public.tableau.com/views/Health360HealthcareRiskAnalysis_17932895178070/Health360HealthcareRiskAnalysis',
+        title: 'Health360 Healthcare Risk Analysis',
+        description: 'Explore patient distribution, health indicators and lifestyle patterns.',
+        link: 'https://public.tableau.com/views/Health360HealthcareRiskAnalysis_17932895178070/Health360HealthcareRiskAnalysis'
+      },
+      story: {
+        src: 'https://public.tableau.com/views/Health360PatientRiskAnalysis/Health360PatientRiskAnalysis',
+        title: 'Health360 – Patient Risk Analysis',
+        description: 'Follow the three-part story: demographics, lifestyle insights, and recommendations.',
+        link: 'https://public.tableau.com/views/Health360PatientRiskAnalysis/Health360PatientRiskAnalysis'
+      }
+    };
+    const viz = document.getElementById('healthViz');
+    const loading = document.getElementById('loading');
+    const dashboardTab = document.getElementById('dashboardTab');
+    const storyTab = document.getElementById('storyTab');
+    let activeView = 'dashboard';
+    const reveal = () => { loading.style.display = 'none'; };
+    viz.addEventListener('firstinteractive', reveal, { once: true });
+    viz.addEventListener('load', reveal, { once: true });
+    setTimeout(reveal, 14000);
+    function selectView(key) {
+      if (key === activeView) return;
+      activeView = key;
+      const view = views[key];
+      loading.style.display = 'grid';
+      viz.setAttribute('src', view.src);
+      document.getElementById('vizTitle').textContent = view.title;
+      document.getElementById('vizDescription').textContent = view.description;
+      document.getElementById('openTableau').href = view.link;
+      dashboardTab.classList.toggle('active', key === 'dashboard');
+      storyTab.classList.toggle('active', key === 'story');
+      dashboardTab.setAttribute('aria-selected', String(key === 'dashboard'));
+      storyTab.setAttribute('aria-selected', String(key === 'story'));
+      document.getElementById('vizPanel').setAttribute('aria-labelledby', key === 'dashboard' ? 'dashboardTab' : 'storyTab');
+    }
+    dashboardTab.addEventListener('click', () => selectView('dashboard'));
+    storyTab.addEventListener('click', () => selectView('story'));
+  </script>
+</body>
+</html>
